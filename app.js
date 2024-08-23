@@ -4,6 +4,7 @@ const _ = require("lodash");
 const memoryValuesDimmy = {};
 
 // hoi 1
+// hoi 2
 
 _.SetInMemoryDimmy = function(key, value) {
   memoryValuesDimmy[key] = value;
