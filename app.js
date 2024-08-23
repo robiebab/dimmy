@@ -5,6 +5,7 @@ const memoryValuesDimmy = {};
 
 // hoi 1
 // hoi 2
+// hoi 1.1
 
 _.SetInMemoryDimmy = function(key, value) {
   memoryValuesDimmy[key] = value;
