@@ -78,7 +78,7 @@ class App extends Homey.App {
         
         const currentDimValue = device.capabilitiesObj.dim.value || 0;
         const targetDimValue = flowDimLevel / 100;
-        const stepDuration = 250; // Duration of each step in milliseconds
+        const stepDuration = 333; // Duration of each step in milliseconds
         const steps = Math.round(flowDimDuration * 1000 / stepDuration); // Number of steps
         const dimStep = (targetDimValue - currentDimValue) / steps;
 
