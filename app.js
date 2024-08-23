@@ -3,6 +3,7 @@ const Homey = require('homey');
 const _ = require("lodash");
 const memoryValuesDimmy = {};
 
+// hoi 1
 
 _.SetInMemoryDimmy = function(key, value) {
   memoryValuesDimmy[key] = value;
