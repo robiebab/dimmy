@@ -3,7 +3,7 @@ const Homey = require('homey');
 const _ = require("lodash");
 const memoryValuesDimmy = {};
 
-//ik pas wat aan
+
 _.SetInMemoryDimmy = function(key, value) {
   memoryValuesDimmy[key] = value;
 }
@@ -60,53 +60,60 @@ class App extends Homey.App {
     }));
   }
 
+
   async _onFlowSingleDimmyRun(args) {
     try {
-        const currentToken = _.uniqueId();
         const { flowSingleDimmyArgument, flowDimLevel, flowDimDuration } = args;
-        // Retrieve the selected device by ID
         const device = await this.homeyAPI.devices.getDevice({ id: flowSingleDimmyArgument.id });
 
-        // if duration = 0 then set instant 
-        if (flowDimDuration === 0) {
-          await device.setCapabilityValue('dim', (flowDimLevel/100));
-          return true;
-      }
-        
-        await _.SetInMemoryDimmy(device.id, currentToken);
-        if (!device) throw new Error('Device not found');
-        
         const currentDimValue = device.capabilitiesObj.dim.value || 0;
+        const currentOnOffState = device.capabilitiesObj.onoff.value;
         const targetDimValue = flowDimLevel / 100;
+
+        const currentToken = _.uniqueId();
+        _.SetInMemoryDimmy(device.id, currentToken);
+
         const stepDuration = 333; // Duration of each step in milliseconds
-        const steps = Math.round(flowDimDuration * 1000 / stepDuration); // Number of steps
+        const steps = Math.max(Math.round(flowDimDuration * 1000 / stepDuration), 1); // Number of steps
         const dimStep = (targetDimValue - currentDimValue) / steps;
 
-        if (device.capabilitiesObj.dim && device.capabilitiesObj.dim.options && device.capabilitiesObj.dim.options.duration) { 
+        if (device.capabilitiesObj.dim && device.capabilitiesObj.dim.options && device.capabilitiesObj.dim.options.duration) {
             // Set default (Homey) dim level for the selected device with a transition duration
             await device.setCapabilityValue('dim', targetDimValue, { duration: flowDimDuration * 1000 });
         } else {
-            // Custom loop for devices that don't support transition duration
-            let currentStep = 0;
             let currentValue = currentDimValue;
 
-            while (currentStep < steps) {
+            for (let currentStep = 0; currentStep < steps; currentStep++) {
                 currentValue += dimStep;
-                currentStep++;
 
-                // Ensure we don't exceed the target value due to rounding errors
-                if ((dimStep > 0 && currentValue > targetDimValue) || (dimStep < 0 && currentValue < targetDimValue)) {
+                // Controleer of de waarde de doelwaarde overschrijdt
+                if (Math.abs(currentValue - targetDimValue) < Math.abs(dimStep)) {
                     currentValue = targetDimValue;
                 }
-                // Set the dim level
-                if (_.GetInMemoryDimmy(device.id) > currentToken){
-                    break;
-                }  
-                  await device.setCapabilityValue('dim', currentValue);
 
-                // Wait for the next step
+                // Set the dim level
+                if (_.GetInMemoryDimmy(device.id) > currentToken) {
+                    break;
+                }
+                 device.setCapabilityValue('dim', currentValue);
+
+                // Eerste stap: check of het apparaat moet worden ingeschakeld
+                if (currentStep === 0 && targetDimValue > 0 && !currentOnOffState) {
+                    await device.setCapabilityValue('onoff', true);
+                }
+
+                // Break the loop if the target value is reached
+                if (currentValue === targetDimValue) {
+                    break;
+                }
+
                 await this._sleep(stepDuration);
             }
+        }
+
+        // Buiten de loop: check of het apparaat moet worden uitgeschakeld
+        if (targetDimValue === 0 && currentOnOffState) {
+            await device.setCapabilityValue('onoff', false);
         }
 
         return true;
