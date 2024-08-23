@@ -69,9 +69,9 @@ class App extends Homey.App {
         const currentDimValue = device.capabilitiesObj.dim.value || 0;
         const currentOnOffState = device.capabilitiesObj.onoff.value;
         const targetDimValue = flowDimLevel / 100;
-
+        const deviceid = device.id;
         const currentToken = _.uniqueId();
-        _.SetInMemoryDimmy(device.id, currentToken);
+        _.SetInMemoryDimmy(deviceid, currentToken);
 
         const stepDuration = 333; // Duration of each step in milliseconds
         const steps = Math.max(Math.round(flowDimDuration * 1000 / stepDuration), 1); // Number of steps
@@ -94,7 +94,7 @@ class App extends Homey.App {
                 currentValue += dimStep;
 
                 // Set the dim level || Break the loop if the target value is reached || Controleer of de waarde de doelwaarde overschrijdt
-                if (_.GetInMemoryDimmy(device.id) > currentToken || currentValue === targetDimValue || Math.abs(currentValue - targetDimValue) < Math.abs(dimStep)) {
+                if (_.GetInMemoryDimmy(deviceid) > currentToken || currentValue === targetDimValue || Math.abs(currentValue - targetDimValue) < Math.abs(dimStep)) {
                   device.setCapabilityValue('dim', targetDimValue);  
                   break;
                 }
