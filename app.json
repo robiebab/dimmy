@@ -1,0 +1,80 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "the.dimming.company",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Dimmy"
+  },
+  "description": {
+    "en": "Dimmy"
+  },
+  "category": [
+    "lights"
+  ],
+  "permissions": [
+    "homey:manager:api"
+  ],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Robert Hertzer",
+    "email": "robert.hertzer@me.com"
+  },
+  "flow": {
+    "actions": [
+      {
+        "title": {
+          "en": "Dimmmy"
+        },
+        "titleFormatted": {
+          "en": "DIM ! [[flowSingleDimmyArgument]] to [[flowDimLevel]]% in [[flowDimDuration]] seconds."
+        },
+        "hint": {
+          "en": "Dim selected light with duration"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "flowSingleDimmyArgument",
+            "placeholder": {
+              "en": "Search Device"
+            }
+          },
+          {
+            "type": "range",
+            "name": "flowDimLevel",
+            "title": {
+              "en": "Dim Level"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "placeholder": {
+              "en": "Set dim level"
+            }
+          },
+          {
+            "type": "number",
+            "name": "flowDimDuration",
+            "title": {
+              "en": "Duration (seconds)"
+            },
+            "min": 0,
+            "placeholder": {
+              "en": "Set duration in seconds"
+            }
+          }
+        ],
+        "id": "flowSingleDimmy"
+      }
+    ]
+  }
+}

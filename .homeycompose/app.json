@@ -1,0 +1,30 @@
+{
+  "id": "the.dimming.company",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Dimmy"
+  },
+  "description": {
+    "en": "Dimmy"
+  },
+  "category": [
+    "lights"
+  ],
+  "permissions": [
+    "homey:manager:api"
+  ],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Robert Hertzer",
+    "email": "robert.hertzer@me.com"
+  }
+}
