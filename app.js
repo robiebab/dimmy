@@ -2,7 +2,7 @@ const { HomeyAPI } = require('homey-api');
 const Homey = require('homey');
 const _ = require("lodash");
 const memoryValuesDimmy = {};
-// test1
+
 
 _.SetInMemoryDimmy = function(key, value) {
   memoryValuesDimmy[key] = value;
