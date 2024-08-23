@@ -1,0 +1,130 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "the.dimming.company",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Dimmy"
+  },
+  "description": {
+    "en": "Dimmy"
+  },
+  "category": [
+    "lights"
+  ],
+  "permissions": [
+    "homey:manager:api"
+  ],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Robert Hertzer",
+    "email": "robert.hertzer@me.com"
+  },
+  "flow": {
+    "actions": [
+      {
+        "title": {
+          "en": "Dimmmy",
+          "nl": "Dimmmy",
+          "fr": "Dimmmy",
+          "de": "Dimmmy",
+          "es": "Dimmmy",
+          "zh": "Dimmmy",
+          "ru": "Dimmmy"
+        },
+        "titleFormatted": {
+          "en": "Set [[flowSingleDimmyArgument]] to [[flowDimLevel]]% over [[flowDimDuration]] seconds.",
+          "nl": "Stel [[flowSingleDimmyArgument]] in op [[flowDimLevel]]% gedurende [[flowDimDuration]] seconden.",
+          "fr": "Réglez [[flowSingleDimmyArgument]] à [[flowDimLevel]]% en [[flowDimDuration]] secondes.",
+          "de": "Setze [[flowSingleDimmyArgument]] auf [[flowDimLevel]]% über [[flowDimDuration]] Sekunden.",
+          "es": "Ajusta [[flowSingleDimmyArgument]] a [[flowDimLevel]]% durante [[flowDimDuration]] segundos.",
+          "zh": "在 [[flowDimDuration]] 秒内将 [[flowSingleDimmyArgument]] 设置为 [[flowDimLevel]]%。",
+          "ru": "Установите [[flowSingleDimmyArgument]] на [[flowDimLevel]]% за [[flowDimDuration]] секунд."
+        },
+        "hint": {
+          "en": "This card adjusts the brightness of selected devices over a configurable period",
+          "nl": "Deze kaart past de helderheid van geselecteerde apparaten aan over een instelbare periode",
+          "fr": "Cette carte ajuste la luminosité des appareils sélectionnés sur une période configurable",
+          "de": "Diese Karte passt die Helligkeit der ausgewählten Geräte über einen konfigurierbaren Zeitraum an",
+          "es": "Esta tarjeta ajusta el brillo de los dispositivos seleccionados durante un período configurable",
+          "zh": "此卡片可在可配置的时间内调整所选设备的亮度",
+          "ru": "Эта карта регулирует яркость выбранных устройств в течение настраиваемого периода"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "flowSingleDimmyArgument",
+            "placeholder": {
+              "en": "device",
+              "nl": "apparaat",
+              "fr": "appareil",
+              "de": "Gerät",
+              "es": "dispositivo",
+              "zh": "设备",
+              "ru": "устройство"
+            }
+          },
+          {
+            "type": "range",
+            "name": "flowDimLevel",
+            "title": {
+              "en": "brightness",
+              "nl": "helderheid",
+              "fr": "luminosité",
+              "de": "Helligkeit",
+              "es": "brillo",
+              "zh": "亮度",
+              "ru": "яркость"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "placeholder": {
+              "en": "brightness",
+              "nl": "helderheid",
+              "fr": "luminosité",
+              "de": "Helligkeit",
+              "es": "brillo",
+              "zh": "亮度",
+              "ru": "яркость"
+            }
+          },
+          {
+            "type": "range",
+            "name": "flowDimDuration",
+            "title": {
+              "en": "duration",
+              "nl": "duur",
+              "fr": "durée",
+              "de": "Dauer",
+              "es": "duración",
+              "zh": "持续时间",
+              "ru": "длительность"
+            },
+            "min": 0,
+            "max": 20,
+            "step": 0.5,
+            "placeholder": {
+              "en": "duration",
+              "nl": "duur",
+              "fr": "durée",
+              "de": "Dauer",
+              "es": "duración",
+              "zh": "持续时间",
+              "ru": "длительность"
+            }
+          }
+        ],
+        "id": "flowSingleDimmy"
+      }
+    ]
+  }
+}
