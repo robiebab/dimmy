@@ -3,9 +3,6 @@ const Homey = require('homey');
 const _ = require("lodash");
 const memoryValuesDimmy = {};
 
-// hoi 1
-// hoi 2
-// hoi 1.1
 
 _.SetInMemoryDimmy = function(key, value) {
   memoryValuesDimmy[key] = value;
@@ -89,25 +86,17 @@ class App extends Homey.App {
             for (let currentStep = 0; currentStep < steps; currentStep++) {
                 currentValue += dimStep;
 
-                // Controleer of de waarde de doelwaarde overschrijdt
-                if (Math.abs(currentValue - targetDimValue) < Math.abs(dimStep)) {
-                    currentValue = targetDimValue;
+                // Set the dim level || Break the loop if the target value is reached || Controleer of de waarde de doelwaarde overschrijdt
+                if (_.GetInMemoryDimmy(device.id) > currentToken || currentValue === targetDimValue || Math.abs(currentValue - targetDimValue) < Math.abs(dimStep)) {
+                  device.setCapabilityValue('dim', targetDimValue);  
+                  break;
                 }
-
-                // Set the dim level
-                if (_.GetInMemoryDimmy(device.id) > currentToken) {
-                    break;
-                }
+                
                  device.setCapabilityValue('dim', currentValue);
 
                 // Eerste stap: check of het apparaat moet worden ingeschakeld
                 if (currentStep === 0 && targetDimValue > 0 && !currentOnOffState) {
                     await device.setCapabilityValue('onoff', true);
-                }
-
-                // Break the loop if the target value is reached
-                if (currentValue === targetDimValue) {
-                    break;
                 }
 
                 await this._sleep(stepDuration);
