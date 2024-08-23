@@ -77,6 +77,13 @@ class App extends Homey.App {
         const steps = Math.max(Math.round(flowDimDuration * 1000 / stepDuration), 1); // Number of steps
         const dimStep = (targetDimValue - currentDimValue) / steps;
 
+                // Eerste stap: check of het apparaat moet worden ingeschakeld
+        if (targetDimValue > 0 && !currentOnOffState) {
+              await device.setCapabilityValue('dim', 0.01);
+              await device.setCapabilityValue('onoff', true);
+        }
+
+
         if (device.capabilitiesObj.dim && device.capabilitiesObj.dim.options && device.capabilitiesObj.dim.options.duration) {
             // Set default (Homey) dim level for the selected device with a transition duration
             await device.setCapabilityValue('dim', targetDimValue, { duration: flowDimDuration * 1000 });
@@ -93,11 +100,6 @@ class App extends Homey.App {
                 }
                 
                  device.setCapabilityValue('dim', currentValue);
-
-                // Eerste stap: check of het apparaat moet worden ingeschakeld
-                if (currentStep === 0 && targetDimValue > 0 && !currentOnOffState) {
-                    await device.setCapabilityValue('onoff', true);
-                }
 
                 await this._sleep(stepDuration);
             }
