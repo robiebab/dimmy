@@ -4,14 +4,15 @@
   "version": "1.0.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
+  "brandColor": "#0174BE",
   "platforms": [
     "local"
   ],
   "name": {
-    "en": "Dimmy"
+    "en": "dimmy"
   },
   "description": {
-    "en": "Dimmy"
+    "en": "dimmy"
   },
   "category": [
     "lights"
@@ -20,9 +21,9 @@
     "homey:manager:api"
   ],
   "images": {
-    "small": "/assets/images/small.png",
-    "large": "/assets/images/large.png",
-    "xlarge": "/assets/images/xlarge.png"
+    "small": "/assets/images/dimmy_small.png",
+    "large": "/assets/images/dimmy_large.png",
+    "xlarge": "/assets/images/dimmy_xlarge.png"
   },
   "author": {
     "name": "Robert Hertzer",
@@ -32,13 +33,13 @@
     "actions": [
       {
         "title": {
-          "en": "Dimmmy",
-          "nl": "Dimmmy",
-          "fr": "Dimmmy",
-          "de": "Dimmmy",
-          "es": "Dimmmy",
-          "zh": "Dimmmy",
-          "ru": "Dimmmy"
+          "en": "dimmmy",
+          "nl": "dimmmy",
+          "fr": "dimmmy",
+          "de": "dimmmy",
+          "es": "dimmmy",
+          "zh": "dimmmy",
+          "ru": "dimmmy"
         },
         "titleFormatted": {
           "en": "Set [[flowSingleDimmyArgument]] to [[flowDimLevel]]% over [[flowDimDuration]] seconds.",

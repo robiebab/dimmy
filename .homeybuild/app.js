@@ -69,13 +69,20 @@ class App extends Homey.App {
         const currentDimValue = device.capabilitiesObj.dim.value || 0;
         const currentOnOffState = device.capabilitiesObj.onoff.value;
         const targetDimValue = flowDimLevel / 100;
-
+        const deviceid = device.id;
         const currentToken = _.uniqueId();
-        _.SetInMemoryDimmy(device.id, currentToken);
+        _.SetInMemoryDimmy(deviceid, currentToken);
 
         const stepDuration = 333; // Duration of each step in milliseconds
         const steps = Math.max(Math.round(flowDimDuration * 1000 / stepDuration), 1); // Number of steps
         const dimStep = (targetDimValue - currentDimValue) / steps;
+
+                // Eerste stap: check of het apparaat moet worden ingeschakeld
+        if (targetDimValue > 0 && !currentOnOffState) {
+              await device.setCapabilityValue('dim', 0.01);
+              await device.setCapabilityValue('onoff', true);
+        }
+
 
         if (device.capabilitiesObj.dim && device.capabilitiesObj.dim.options && device.capabilitiesObj.dim.options.duration) {
             // Set default (Homey) dim level for the selected device with a transition duration
@@ -86,26 +93,13 @@ class App extends Homey.App {
             for (let currentStep = 0; currentStep < steps; currentStep++) {
                 currentValue += dimStep;
 
-                // Controleer of de waarde de doelwaarde overschrijdt
-                if (Math.abs(currentValue - targetDimValue) < Math.abs(dimStep)) {
-                    currentValue = targetDimValue;
+                // Set the dim level || Break the loop if the target value is reached || Controleer of de waarde de doelwaarde overschrijdt
+                if (_.GetInMemoryDimmy(deviceid) > currentToken || currentValue === targetDimValue || Math.abs(currentValue - targetDimValue) < Math.abs(dimStep)) {
+                  device.setCapabilityValue('dim', targetDimValue);  
+                  break;
                 }
-
-                // Set the dim level
-                if (_.GetInMemoryDimmy(device.id) > currentToken) {
-                    break;
-                }
+                
                  device.setCapabilityValue('dim', currentValue);
-
-                // Eerste stap: check of het apparaat moet worden ingeschakeld
-                if (currentStep === 0 && targetDimValue > 0 && !currentOnOffState) {
-                    await device.setCapabilityValue('onoff', true);
-                }
-
-                // Break the loop if the target value is reached
-                if (currentValue === targetDimValue) {
-                    break;
-                }
 
                 await this._sleep(stepDuration);
             }
