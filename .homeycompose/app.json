@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
+  "brandColor": "#0174BE",
   "platforms": [
     "local"
   ],
   "name": {
-    "en": "Dimmy"
+    "en": "dimmy"
   },
   "description": {
-    "en": "Dimmy"
+    "en": "dimmy"
   },
   "category": [
     "lights"

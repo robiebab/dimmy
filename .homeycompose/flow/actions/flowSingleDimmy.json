@@ -1,12 +1,12 @@
 {
   "title": {
-    "en": "Dimmmy",
-    "nl": "Dimmmy",
-    "fr": "Dimmmy",
-    "de": "Dimmmy",
-    "es": "Dimmmy",
-    "zh": "Dimmmy",
-    "ru": "Dimmmy"
+    "en": "dimmmy",
+    "nl": "dimmmy",
+    "fr": "dimmmy",
+    "de": "dimmmy",
+    "es": "dimmmy",
+    "zh": "dimmmy",
+    "ru": "dimmmy"
   },
   "titleFormatted": {
     "en": "Set [[flowSingleDimmyArgument]] to [[flowDimLevel]]% over [[flowDimDuration]] seconds.",
