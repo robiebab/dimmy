@@ -27,5 +27,17 @@
   "author": {
     "name": "Robert Hertzer",
     "email": "robert.hertzer@me.com"
-  }
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Ruud Palmen"
+      }
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/robiebab/dimmy/issues"
+  },
+  "source": "https://github.com/robiebab/dimmy/",
+  "support": "https://github.com/robiebab/dimmy/issues"
 }
