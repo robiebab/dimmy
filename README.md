@@ -2,4 +2,4 @@
 
 Dimmy
 
-![Alt text](images/dimmy_xlarge.png?raw=true "dimmy")
+![Alt text](assets/images/dimmy_xlarge.png?raw=true "dimmy")
