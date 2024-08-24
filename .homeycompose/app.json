@@ -19,9 +19,9 @@
     "homey:manager:api"
   ],
   "images": {
-    "small": "/assets/images/small.png",
-    "large": "/assets/images/large.png",
-    "xlarge": "/assets/images/xlarge.png"
+    "small": "/assets/images/dimmy_small.png",
+    "large": "/assets/images/dimmy_large.png",
+    "xlarge": "/assets/images/dimmy_xlarge.png"
   },
   "author": {
     "name": "Robert Hertzer",
