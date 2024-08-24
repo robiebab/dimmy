@@ -2,7 +2,7 @@ const { HomeyAPI } = require('homey-api');
 const Homey = require('homey');
 const _ = require("lodash");
 const memoryValuesDimmy = {};
-
+// test
 // Definieer Set en Get functies zonder lodash
 function SetInMemoryDimmy(key, value) {
   memoryValuesDimmy[key] = value;
