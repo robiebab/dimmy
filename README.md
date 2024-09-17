@@ -5,9 +5,11 @@
 
 # Discover the Future of Smart Lighting with dimmy by The Dimming Company
 
-Transform the way you control your home’s lighting with dimmy, the innovative Homey app designed to give you unprecedented control over your lights. Whether you’re looking to set the perfect ambiance for a cozy evening or gradually wake up to a soft, warm glow, dimmy has you covered.
+Revolutionize the way you control your home’s lighting with Dimmy, the innovative Homey app that puts unparalleled power at your fingertips. Whether you want to create the perfect ambiance for a cozy evening or wake up gently to a soft, warm glow, Dimmy makes it effortless.
 
-## Key Features:
+We created Dimmy because not all apps support dimming with duration, and we wanted to fill that gap. In addition to standard dimming, we’ve added exciting new variations that we believe bring a cool, fresh touch to lighting control. If you have ideas or suggestions for further improvements, feel free to reach out—we’d love to hear from you!
+
+## Available Features:
 
 - **Smooth Dimming with Precision Control:**
   With dimmy, you can easily set custom dimming durations, allowing your lights to transition smoothly from bright to dim or vice versa. Whether it’s a gradual fade-out before bedtime or a soft, gentle increase in brightness to start your day, dimmy gives you the power to control it all.
@@ -29,3 +31,6 @@ Transform the way you control your home’s lighting with dimmy, the innovative 
 dimmy isn’t just another dimmer it’s a comprehensive lighting control solution. Developed by The Dimming Company, a leader in smart lighting technology, dimmy leverages the latest advancements to bring you a more comfortable, customizable, and energy-efficient home environment.
 
 Whether you’re looking to create a serene, calming space or need bright, focused lighting for work, dimmy adapts to your needs. Experience the future of smart lighting today with dimmy, and see how a simple app can transform your home.
+
+[![Buy Me a Coffee](https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png)](https://www.buymeacoffee.com/robiebab)
+
