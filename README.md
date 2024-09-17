@@ -3,34 +3,63 @@
 ![Alt text](assets/images/xlarge.png?raw=true "dimmy")
 
 
-# Discover the Future of Smart Lighting with dimmy by The Dimming Company
+# Dimmy App for Homey - Wiki Overview
 
-Revolutionize the way you control your home’s lighting with Dimmy, the innovative Homey app that puts unparalleled power at your fingertips. Whether you want to create the perfect ambiance for a cozy evening or wake up gently to a soft, warm glow, Dimmy makes it effortless.
+## Why Use Dimmy?
 
-We created Dimmy because not all apps support dimming with duration, and we wanted to fill that gap. In addition to standard dimming, we’ve added exciting new variations that we believe bring a cool, fresh touch to lighting control. If you have ideas or suggestions for further improvements, feel free to reach out—we’d love to hear from you!
+The **Dimmy** app is an essential tool for anyone looking to enhance control over their smart lighting system. Whether you want to automate lighting based on ambient conditions, create smooth transitions between brightness levels, or add blinking effects for notifications, Dimmy offers a powerful and flexible solution. Designed to work seamlessly with **Homey Pro 2023 and higher**, Dimmy gives you advanced lighting control that adapts to your home’s needs and environment.
 
-## Available Features:
+---
 
-- **Smooth Dimming with Precision Control:**
-  With dimmy, you can easily set custom dimming durations, allowing your lights to transition smoothly from bright to dim or vice versa. Whether it’s a gradual fade-out before bedtime or a soft, gentle increase in brightness to start your day, dimmy gives you the power to control it all.
+## Available Features
 
-- **Dynamic Color Temperature Adjustment:**
-  Not only can you dim your lights, but dimmy also allows you to adjust the color temperature to suit your mood or activity. Shift from a cool, energizing white light during the day to a warm, relaxing tone in the evening, all with a simple command.
+### [Adjust Brightness and Temperature Based on LUX Over Time](https://github.com/robiebab/dimmy/wiki/Adjust-Brightness-and-Temperature-Based-on-LUX-Over-Time)
+This feature allows you to dynamically adjust both brightness and color temperature based on the current LUX levels in the room. As the ambient light changes, the lighting adjusts to maintain the desired brightness and color warmth.
 
-- **Seamless Integration with Homey:**
-  dimmy integrates seamlessly with your Homey system, making it easy to automate your lighting. Set routines, create custom lighting scenes, and ensure your home is always lit just the way you like it, without any hassle.
+- Control both brightness and color temperature.
+- Configure the transition duration.
+- Adjust based on ambient light levels.
 
-- **Energy Efficiency at Your Fingertips:**
-  By optimizing your lighting with dimmy, you’re not just enhancing comfort and ambiance—you’re also saving energy. Smooth transitions and precise controls mean your lights are only as bright as they need to be, reducing unnecessary power usage.
+### [Adjust Brightness Based on LUX Over Time](https://github.com/robiebab/dimmy/wiki/Adjust-Brightness-Based-on-LUX-Over-Time)
+With this feature, you can automatically adjust the brightness of your lights based on the ambient LUX levels, ensuring your home lighting adapts to the natural light throughout the day.
 
-- **User-Friendly and Intuitive:**
-  Designed with simplicity in mind, dimmy’s user interface is easy to navigate, making it accessible for everyone. Whether you’re a tech enthusiast or new to smart home technology, you’ll find dimmy straightforward and enjoyable to use.
+- Set minimum and maximum brightness values.
+- Adjust based on LUX thresholds.
+- Smooth transition over a set duration.
 
-## Why Choose dimmy?
+### [Blink Light with Dimming](https://github.com/robiebab/dimmy/wiki/Blink-Light-with-Dimming)
+Create a blinking effect with your dimmable lights, with smooth transitions in and out of brightness. This feature is ideal for visual notifications or creating ambiance.
 
-dimmy isn’t just another dimmer it’s a comprehensive lighting control solution. Developed by The Dimming Company, a leader in smart lighting technology, dimmy leverages the latest advancements to bring you a more comfortable, customizable, and energy-efficient home environment.
+- Configure blink interval and number of blinks.
+- Smooth dimming effect for each blink.
+- Restore the original light state after blinking.
 
-Whether you’re looking to create a serene, calming space or need bright, focused lighting for work, dimmy adapts to your needs. Experience the future of smart lighting today with dimmy, and see how a simple app can transform your home.
+### [Change Brightness and Temperature Over Duration](https://github.com/robiebab/dimmy/wiki/Change-Brightness-and-Temperature-Over-Duration)
+This feature allows you to smoothly change both brightness and color temperature of your lights over a specified time period. Perfect for creating lighting scenes that gradually change the mood of a room.
+
+- Adjust both brightness and color temperature.
+- Set the duration of the transition.
+- Works with individual lights or entire zones.
+
+### [Change Brightness Over Duration](https://github.com/robiebab/dimmy/wiki/Change-Brightness-Over-Duration)
+Easily set the brightness of your lights to change gradually over time. This feature is useful for creating smooth transitions, like dimming the lights as you go to sleep or gradually brightening them in the morning.
+
+- Set brightness to change over a user-defined duration.
+- Works with both individual devices and zones.
+- Smooth brightness transitions.
+
+---
+
+## How to Use
+
+Each feature is available as a **Flow Action Card** in Homey, which you can add to your existing flows or create new flows to control your lights. For detailed instructions on how to set up each feature, click on the links above to access the specific documentation page.
+
+Whether you're looking to automate your home lighting based on LUX values or create more sophisticated lighting scenes, the **Dimmy** app offers flexible and powerful control over your smart lights.
+
+---
+
+## Feedback and Support
+
+If you encounter any issues or have feedback about the Dimmy app, feel free to create an issue in the [GitHub repository](https://github.com/robiebab/dimmy/issues). We welcome your input and will do our best to address any concerns.
 
 [![Buy Me a Coffee](https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png)](https://www.buymeacoffee.com/robiebab)
-
