@@ -5,7 +5,21 @@
 
 ## Why Use Dimmy?
 
-The **Dimmy** app is an essential tool for anyone looking to enhance control over their smart lighting system. Whether you want to automate lighting based on ambient conditions, create smooth transitions between brightness levels, or add blinking effects for notifications, Dimmy offers a powerful and flexible solution. Designed to work seamlessly with **Homey Pro 2023 and higher**, Dimmy gives you advanced lighting control that adapts to your home’s needs and environment.
+# dimmy
+
+![Alt text](assets/images/xlarge.png?raw=true "dimmy")
+
+The **Dimmy** app is an essential tool for anyone looking to enhance control over their smart lighting system. Whether you want to automate lighting based on ambient conditions, create smooth transitions between brightness levels, or add blinking effects for notifications, Dimmy offers a powerful and flexible solution. 
+
+Dimmy was developed to address a limitation with the **Homey integration via Matter to the Hue Bridge**, where the native **duration** feature is not supported. This app fills that gap, allowing users to regain control over smooth transitions and other advanced lighting functions. 
+
+While **Dimmy** works seamlessly with **Homey Pro 2023 and higher**, and has been tested primarily with Hue devices via Matter, other protocols such as **Zigbee** or **Z-Wave** may offer different levels of compatibility. However, we have not extensively tested these protocols, and your experience may vary depending on the devices and integrations in use.
+---
+
+## Available Features
+
+### [Adjust Brightness and Temperature Based on LUX Over Time](https://github.com/robiebab/dimmy/wiki/Adjust-Brightness-and-Temperature-Based-on-LUX-Over-Time)
+This feature allows you to dynamically adjust both brightness and color temperature based on the current LUX levels in the room. As the
 
 ---
 
