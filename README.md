@@ -1,5 +1,3 @@
-# dimmy
-
 ![Alt text](assets/images/xlarge.png?raw=true "dimmy")
 
 
