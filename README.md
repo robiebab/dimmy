@@ -1,7 +1,7 @@
 ![Alt text](assets/images/xlarge.png?raw=true "dimmy")
 
 
-# Dimmy App for Homey - Wiki Overview
+# Dimmy App for Homey
 
 ## Why Use Dimmy?
 
