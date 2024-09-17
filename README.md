@@ -1,14 +1,5 @@
 ![Alt text](assets/images/xlarge.png?raw=true "dimmy")
 
-
-# Dimmy App for Homey
-
-## Why Use Dimmy?
-
-# dimmy
-
-![Alt text](assets/images/xlarge.png?raw=true "dimmy")
-
 The **Dimmy** app is an essential tool for anyone looking to enhance control over their smart lighting system. Whether you want to automate lighting based on ambient conditions, create smooth transitions between brightness levels, or add blinking effects for notifications, Dimmy offers a powerful and flexible solution. 
 
 Dimmy was developed to address a limitation with the **Homey integration via Matter to the Hue Bridge**, where the native **duration** feature is not supported. This app fills that gap, allowing users to regain control over smooth transitions and other advanced lighting functions. 
