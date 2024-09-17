@@ -10,13 +10,6 @@ While **Dimmy** works seamlessly with **Homey Pro 2023 and higher**, and has bee
 ## Available Features
 
 ### [Adjust Brightness and Temperature Based on LUX Over Time](https://github.com/robiebab/dimmy/wiki/Adjust-Brightness-and-Temperature-Based-on-LUX-Over-Time)
-This feature allows you to dynamically adjust both brightness and color temperature based on the current LUX levels in the room. As the
-
----
-
-## Available Features
-
-### [Adjust Brightness and Temperature Based on LUX Over Time](https://github.com/robiebab/dimmy/wiki/Adjust-Brightness-and-Temperature-Based-on-LUX-Over-Time)
 This feature allows you to dynamically adjust both brightness and color temperature based on the current LUX levels in the room. As the ambient light changes, the lighting adjusts to maintain the desired brightness and color warmth.
 
 - Control both brightness and color temperature.
