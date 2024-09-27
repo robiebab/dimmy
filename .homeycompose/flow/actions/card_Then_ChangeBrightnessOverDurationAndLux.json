@@ -1,0 +1,169 @@
+{
+  "title": {
+    "en": "Adjust brightness based on LUX over time",
+    "nl": "Pas helderheid aan op basis van LUX over tijd",
+    "fr": "Ajuster la luminosité en fonction du LUX sur la durée",
+    "de": "Helligkeit basierend auf LUX über Zeit anpassen",
+    "es": "Ajustar el brillo basado en LUX a lo largo del tiempo",
+    "zh": "根据 LUX 随时间调整亮度",
+    "ru": "Настроить яркость на основе LUX с течением времени"
+  },
+  "titleFormatted": {
+    "en": "Set [[selectDimmableDevice]] brightness between [[minBrightness]]% and [[maxBrightness]]% over [[setDuration]] seconds based on LUX [[luxValue]] with threshold [[luxThreshold]].",
+    "nl": "Stel de helderheid van [[selectDimmableDevice]] in tussen [[minBrightness]]% en [[maxBrightness]]% gedurende [[setDuration]] seconden op basis van LUX [[luxValue]] met drempel [[luxThreshold]].",
+    "fr": "Réglez la luminosité de [[selectDimmableDevice]] entre [[minBrightness]]% et [[maxBrightness]]% en [[setDuration]] secondes sur la base de LUX [[luxValue]] avec seuil [[luxThreshold]].",
+    "de": "Setze die Helligkeit von [[selectDimmableDevice]] zwischen [[minBrightness]]% und [[maxBrightness]]% über [[setDuration]] Sekunden basierend auf LUX [[luxValue]] mit Schwellenwert [[luxThreshold]].",
+    "es": "Ajusta el brillo de [[selectDimmableDevice]] entre [[minBrightness]]% y [[maxBrightness]]% durante [[setDuration]] segundos basado en LUX [[luxValue]] con umbral [[luxThreshold]].",
+    "zh": "在 [[setDuration]] 秒内将 [[selectDimmableDevice]] 的亮度设置为 [[minBrightness]]% 到 [[maxBrightness]]%，基于 LUX [[luxValue]] 和阈值 [[luxThreshold]]。",
+    "ru": "Установите яркость [[selectDimmableDevice]] в диапазоне от [[minBrightness]]% до [[maxBrightness]]% за [[setDuration]] секунд на основе LUX [[luxValue]] с порогом [[luxThreshold]]."
+  },
+  "hint": {
+    "en": "This card adjusts the brightness of selected devices over a configurable period between minimum and maximum brightness, based on LUX values and thresholds.",
+    "nl": "Deze kaart past de helderheid van geselecteerde apparaten aan over een instelbare periode tussen minimale en maximale helderheid, op basis van LUX-waarden en drempelwaarden.",
+    "fr": "Cette carte ajuste la luminosité des appareils sélectionnés sur une période configurable entre les luminosités minimale et maximale, en fonction des valeurs et seuils LUX.",
+    "de": "Diese Karte passt die Helligkeit der ausgewählten Geräte über einen konfigurierbaren Zeitraum zwischen minimaler und maximaler Helligkeit an, basierend auf LUX-Werten und Schwellenwerten.",
+    "es": "Esta tarjeta ajusta el brillo de los dispositivos seleccionados durante un período configurable entre el brillo mínimo y máximo, basado en valores y umbrales de LUX.",
+    "zh": "此卡片可在可配置的时间内调整所选设备的亮度，介于最小和最大亮度之间，并基于 LUX 值和阈值。",
+    "ru": "Эта карта регулирует яркость выбранных устройств в течение настраиваемого периода между минимальной и максимальной яркостью, основанного на значениях LUX и порогах."
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "selectDimmableDevice",
+      "placeholder": {
+        "en": "device",
+        "nl": "apparaat",
+        "fr": "appareil",
+        "de": "Gerät",
+        "es": "dispositivo",
+        "zh": "设备",
+        "ru": "устройство"
+      }
+    },
+    {
+      "type": "range",
+      "name": "minBrightness",
+      "title": {
+        "en": "minimum brightness (%)",
+        "nl": "minimale helderheid (%)",
+        "fr": "luminosité minimale (%)",
+        "de": "minimale Helligkeit (%)",
+        "es": "brillo mínimo (%)",
+        "zh": "最小亮度 (%)",
+        "ru": "минимальная яркость (%)"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "placeholder": {
+        "en": "min brightness",
+        "nl": "min helderheid",
+        "fr": "luminosité min",
+        "de": "min Helligkeit",
+        "es": "brillo mín",
+        "zh": "最低亮度",
+        "ru": "мин яркость"
+      }
+    },
+    {
+      "type": "range",
+      "name": "maxBrightness",
+      "title": {
+        "en": "maximum brightness (%)",
+        "nl": "maximale helderheid (%)",
+        "fr": "luminosité maximale (%)",
+        "de": "maximale Helligkeit (%)",
+        "es": "brillo máximo (%)",
+        "zh": "最大亮度 (%)",
+        "ru": "максимальная яркость (%)"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "placeholder": {
+        "en": "max brightness",
+        "nl": "max helderheid",
+        "fr": "luminosité max",
+        "de": "max Helligkeit",
+        "es": "brillo máx",
+        "zh": "最高亮度",
+        "ru": "макс яркость"
+      }
+    },
+    {
+      "type": "range",
+      "name": "setDuration",
+      "title": {
+        "en": "duration (seconds)",
+        "nl": "duur (seconden)",
+        "fr": "durée (secondes)",
+        "de": "Dauer (Sekunden)",
+        "es": "duración (segundos)",
+        "zh": "持续时间 (秒)",
+        "ru": "длительность (секунд)"
+      },
+      "min": 0,
+      "max": 20,
+      "step": 0.333,
+      "placeholder": {
+        "en": "duration",
+        "nl": "duur",
+        "fr": "durée",
+        "de": "Dauer",
+        "es": "duración",
+        "zh": "持续时间",
+        "ru": "длительность"
+      }
+    },
+    {
+      "type": "number",
+      "name": "luxValue",
+      "title": {
+        "en": "LUX value",
+        "nl": "LUX-waarde",
+        "fr": "valeur LUX",
+        "de": "LUX-Wert",
+        "es": "valor LUX",
+        "zh": "LUX值",
+        "ru": "значение LUX"
+      },
+      "min": 0,
+      "max": 10000,
+      "step": 1,
+      "placeholder": {
+        "en": "lux value",
+        "nl": "LUX-waarde",
+        "fr": "valeur LUX",
+        "de": "LUX-Wert",
+        "es": "valor LUX",
+        "zh": "LUX值",
+        "ru": "значение LUX"
+      }
+    },
+    {
+      "type": "number",
+      "name": "luxThreshold",
+      "title": {
+        "en": "LUX threshold",
+        "nl": "LUX-drempel",
+        "fr": "seuil LUX",
+        "de": "LUX-Schwellenwert",
+        "es": "umbral LUX",
+        "zh": "LUX 阈值",
+        "ru": "порог LUX"
+      },
+      "min": 0,
+      "max": 10000,
+      "step": 1,
+      "placeholder": {
+        "en": "lux threshold",
+        "nl": "LUX-drempel",
+        "fr": "seuil LUX",
+        "de": "LUX-Schwellenwert",
+        "es": "umbral LUX",
+        "zh": "LUX 阈值",
+        "ru": "порог LUX"
+      }
+    }
+  ]
+}
