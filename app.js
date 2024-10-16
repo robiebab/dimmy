@@ -108,7 +108,11 @@ class App extends Homey.App {
     // Register the card for blinking lights
     require('./cards/card_Then_BlinkLight').register(this.homey, this.homeyAPI, options);    
     // Register the card for changing brightness and temperature over duration and LUX
-    require('./cards/card_Then_ChangeBrightnessAndTemperatureOverDurationAndLux').register(this.homey, this.homeyAPI, options);  
+    require('./cards/card_Then_ChangeBrightnessAndTemperatureOverDurationAndLux').register(this.homey, this.homeyAPI, options); 
+    // Register the card for changing brightness over duration and LUX reverse
+    require('./cards/card_Then_ChangeBrightnessOverDurationAndLux_Reverse').register(this.homey, this.homeyAPI, options);   
+    // Register the card for changing brightness over duration and LUX reverse
+    require('./cards/card_Then_ChangeBrightnessAndTemperatureOverDurationAndLux_Reverse').register(this.homey, this.homeyAPI, options);      
   }
 }
 
