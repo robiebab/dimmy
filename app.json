@@ -36,6 +36,11 @@
       }
     ]
   },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "RobertHertzer"
+      }}},
   "bugs": {
     "url": "https://github.com/robiebab/dimmy/issues"
   },
