@@ -21,9 +21,10 @@ async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, target
 
   const devicesInfo = await Promise.all(devices.map(async (device) => {
     const currentDevice = await homeyAPI.devices.getDevice({ id: device.id });
+    let currentOnOffState = currentDevice.capabilitiesObj.onoff.value;
     let currentBrightness = currentDevice.capabilitiesObj.dim.value || 0;
     let currentTemperature = currentDevice.capabilitiesObj.light_temperature?.value || 0;
-    const currentOnOffState = currentDevice.capabilitiesObj.onoff.value;
+    if (currentOnOffState == false){currentBrightness = 0;} //if device is off then start from 0
     const deviceid = currentDevice.id;
 
     const currentToken = generateUniqueId();
