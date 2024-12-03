@@ -42,15 +42,15 @@ async function onFlowBlinkLight(homeyAPI, helpers, args) {
     // Function to dim in (from 0 to 100%) and out (from 100% to 0%) smoothly
     const dimLight = async (device, startBrightness, endBrightness, stepDuration) => {
       let currentBrightness = startBrightness;
-      const brightnessStep = (endBrightness - startBrightness) / (stepDuration / 333);
+      const brightnessStep = (endBrightness - startBrightness) / (stepDuration / 410);
 
-      for (let step = 0; step < stepDuration / 333; step++) {
+      for (let step = 0; step < stepDuration / 410; step++) {
         if (GetInMemoryDimmy(device.id) != currentToken) {
           return;
         }
         currentBrightness += brightnessStep;
         await device.setCapabilityValue('dim', parseFloat(currentBrightness.toFixed(2)));
-        await sleep(333);
+        await sleep(410);
       }
 
       await device.setCapabilityValue('dim', endBrightness);

@@ -99,6 +99,7 @@ class App extends Homey.App {
 
   registerFlowCards() {
     const options = { generateUniqueId, SetInMemoryDimmy, GetInMemoryDimmy, sleep, autocompleteDevices};
+    
     // Register the card for changing brightness over duration
     require('./cards/card_Then_ChangeBrightnessOverDuration').register(this.homey, this.homeyAPI, options);
     // Register the card for changing brightness and temperature over duration

@@ -13,7 +13,7 @@ async function register(homey, homeyAPI, { generateUniqueId, SetInMemoryDimmy, G
 async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, targetBrightness, targetTemperature, setDuration) {
   const { generateUniqueId, SetInMemoryDimmy, GetInMemoryDimmy, sleep } = helpers;
 
-  const stepDuration = 333; // Base step duration in milliseconds
+  const stepDuration = 410; // Base step duration in milliseconds
   const milisecDuration = setDuration * 1000;
   const steps = Math.max(Math.round(milisecDuration / stepDuration), 1);
   
