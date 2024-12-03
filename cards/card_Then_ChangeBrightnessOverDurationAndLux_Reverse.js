@@ -17,20 +17,29 @@ async function dimDevicesInSync(homeyAPI, helpers, devices, targetBrightness, se
   const milisecDuration = setDuration * 1000;
   const steps = Math.max(Math.round(milisecDuration / stepDuration), 1);
 
-  const totalStartTime = Date.now();
-
   const devicesInfo = await Promise.all(devices.map(async (device) => {
     const currentDevice = await homeyAPI.devices.getDevice({ id: device.id });
+    const deviceid = currentDevice.id;
+    if (setDuration == 0){
+      await currentDevice.setCapabilityValue('dim', targetBrightness);
+      return;
+    }
     let currentBrightness = currentDevice.capabilitiesObj.dim.value || 0;
     let currentOnOffState = currentDevice.capabilitiesObj.onoff.value;
     if (currentOnOffState == false){currentBrightness = 0;} //if device is off then start from 0
-    const deviceid = currentDevice.id;
 
     const currentToken = generateUniqueId();
     SetInMemoryDimmy(deviceid, currentToken);
 
+
+    if (targetBrightness > 0){
+      TargettOnOffState = true;
+    } else{
+      TargettOnOffState = false;
+    }
+
     // **Check if the current brightness already matches the target value**
-    if (currentBrightness === targetBrightness) {
+    if (currentBrightness === targetBrightness && currentOnOffState === TargettOnOffState) {
       // Skip the loop if the value is already correct
       return { skip: true, deviceid, currentDevice, currentOnOffState };
     }
@@ -70,12 +79,6 @@ async function dimDevicesInSync(homeyAPI, helpers, devices, targetBrightness, se
     });
 
     await Promise.all(promises);
-
-    const elapsedTime = Date.now() - totalStartTime;
-    const expectedTime = (currentStep + 1) * stepDuration;
-    const remainingTime = expectedTime - elapsedTime;
-
-    await sleep(Math.max(remainingTime, 0));
   }
 
   await Promise.all(devicesToUpdate.map(async ({ currentDevice, currentBrightness, currentToken, deviceid, currentOnOffState }) => {

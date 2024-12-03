@@ -16,16 +16,17 @@ async function dimDevicesInSync(homeyAPI, helpers, devices, targetBrightness, se
   const stepDuration = 333; // Base step duration in milliseconds
   const milisecDuration = setDuration * 1000;
   const steps = Math.max(Math.round(milisecDuration / stepDuration), 1);
-  
-  // Start time to track the actual elapsed time
-  const totalStartTime = Date.now();
 
   const devicesInfo = await Promise.all(devices.map(async (device) => {
     const currentDevice = await homeyAPI.devices.getDevice({ id: device.id });
+    const deviceid = currentDevice.id;
+    if (setDuration == 0){
+      await currentDevice.setCapabilityValue('dim', targetBrightness);
+      return;
+    }
     let currentBrightness = currentDevice.capabilitiesObj.dim.value || 0;
     let currentOnOffState = currentDevice.capabilitiesObj.onoff.value;
     if (currentOnOffState == false){currentBrightness = 0;} //if device is off then start from 0
-    const deviceid = currentDevice.id;
 
     if (targetBrightness > 0 && !currentOnOffState) {
       await currentDevice.setCapabilityValue('onoff', true);
@@ -61,14 +62,6 @@ async function dimDevicesInSync(homeyAPI, helpers, devices, targetBrightness, se
     });
 
     await Promise.all(promises);
-
-    // Calculate the actual elapsed time and adjust the sleep time dynamically
-    const elapsedTime = Date.now() - totalStartTime;
-    const expectedTime = (currentStep + 1) * stepDuration;
-    const remainingTime = expectedTime - elapsedTime;
-
-    // Sleep for the remaining time of the step or skip if we are ahead
-    await sleep(Math.max(remainingTime, 0));
   }
 
   // Ensure the final brightness value is set
