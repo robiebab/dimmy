@@ -10,5 +10,20 @@
   },
   "1.1.0": {
     "en": "added feature request github #1 Adjust brightness and temperature based on reverse LUX over time | Adjust brightness inversely based on LUX over time"
+  },
+  "1.1.1": {
+    "en": "Added a check to ensure brightness is set to 0 when the device is turned off, overriding the previous brightness value."
+  },
+  "1.1.3": {
+    "en": "Added checks for 0 duration and on/off capability, along with optimizations to the code (20% improvement)."
+  },
+  "1.1.4": {
+    "en": "added Lazy loading in app.js + increase dim interval from 333 ms to 410 ms"
+  },
+  "1.2.0": {
+    "en": "v1.1.0: Performance update - Significant improved dimming speed and reliability through optimized code, better parallel processing, and enhanced device state management. Added improved error handling and smoother transitions."
+  },
+  "1.2.1": {
+    "en": "Performance update - Significant improved dimming speed and reliability through optimized code, better parallel processing, and enhanced device state management. Added improved error handling and smoother transitions. "
   }
 }
