@@ -13,8 +13,9 @@ async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, target
   const { generateUniqueId, SetInMemoryDimmy, GetInMemoryDimmy } = helpers;
 
   const stepDuration = 410;
-  const milisecDuration = Math.max(setDuration * 1000, stepDuration);
-  const steps = Math.max(Math.round(milisecDuration / stepDuration), 1);
+  const totalDuration = setDuration * 1000;
+  const steps = Math.max(Math.round(totalDuration / stepDuration), 1);
+  const actualStepDuration = totalDuration / steps;
 
   const devicesInfo = await Promise.all(devices.map(async (device) => {
     const currentDevice = await homeyAPI.devices.getDevice({ id: device.id });
@@ -48,16 +49,19 @@ async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, target
   const devicesToUpdate = devicesInfo.filter(info => !info.skip);
   if (devicesToUpdate.length === 0) return;
 
-  const initialPromises = devicesToUpdate
-    .filter(({ currentOnOffState }) => !currentOnOffState && targetBrightness > 0)
-    .map(({ currentDevice }) => Promise.all([
-      currentDevice.setCapabilityValue('dim', 0.01),
-      currentDevice.setCapabilityValue('onoff', true)
-    ]));
+  // Initiële setup voor apparaten die aan moeten
+  if (targetBrightness > 0) {
+    const initialPromises = devicesToUpdate
+      .filter(({ currentOnOffState }) => !currentOnOffState)
+      .map(({ currentDevice }) => Promise.all([
+        currentDevice.setCapabilityValue('onoff', true),
+        currentDevice.setCapabilityValue('dim', 0.01)
+      ]));
 
-  if (initialPromises.length > 0) {
-    await Promise.all(initialPromises);
-    await new Promise(resolve => setTimeout(resolve, 50));
+    if (initialPromises.length > 0) {
+      await Promise.all(initialPromises);
+      await new Promise(resolve => setTimeout(resolve, 50));
+    }
   }
 
   const stepBrightnessMap = devicesToUpdate.map(({ currentBrightness }) => 
@@ -65,7 +69,10 @@ async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, target
   const stepTemperatureMap = devicesToUpdate.map(({ currentTemperature }) => 
     (targetTemperature - currentTemperature) / steps);
 
+  const startTime = Date.now();
+
   for (let currentStep = 0; currentStep < steps; currentStep++) {
+    const stepStartTime = Date.now();
     const allOperations = [];
 
     devicesToUpdate.forEach((info, index) => {
@@ -73,29 +80,67 @@ async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, target
 
       if (GetInMemoryDimmy(deviceid) !== currentToken) return;
 
-      if (currentStep === steps - 1) {
-        allOperations.push(
-          currentDevice.setCapabilityValue('dim', targetBrightness),
-          currentDevice.setCapabilityValue('light_temperature', targetTemperature)
-        );
+      let newBrightness = info.currentBrightness + stepBrightnessMap[index] * (currentStep + 1);
+      let newTemperature = info.currentTemperature + stepTemperatureMap[index] * (currentStep + 1);
+      newBrightness = parseFloat(newBrightness.toFixed(2));
+      newTemperature = parseFloat(newTemperature.toFixed(2));
 
-        if (targetBrightness === 0) {
-          allOperations.push(currentDevice.setCapabilityValue('onoff', false));
-        }
-      } else {
-        let newBrightness = info.currentBrightness + stepBrightnessMap[index] * (currentStep + 1);
-        let newTemperature = info.currentTemperature + stepTemperatureMap[index] * (currentStep + 1);
-        newBrightness = parseFloat(newBrightness.toFixed(2));
-        newTemperature = parseFloat(newTemperature.toFixed(2));
-
-        allOperations.push(
-          currentDevice.setCapabilityValue('dim', newBrightness),
-          currentDevice.setCapabilityValue('light_temperature', newTemperature)
-        );
+      if (targetBrightness === 0) {
+        newBrightness = Math.max(0.01, newBrightness);
       }
+
+      allOperations.push(
+        currentDevice.setCapabilityValue('dim', newBrightness),
+        currentDevice.setCapabilityValue('light_temperature', newTemperature)
+      );
     });
 
     await Promise.all(allOperations);
+
+    const elapsedStepTime = Date.now() - stepStartTime;
+    const remainingStepTime = actualStepDuration - elapsedStepTime;
+
+    if (remainingStepTime > 0) {
+      await new Promise(resolve => setTimeout(resolve, remainingStepTime));
+    }
+  }
+
+  // Controleer totale duratie
+  const totalElapsed = Date.now() - startTime;
+  if (totalElapsed < totalDuration) {
+    await new Promise(resolve => setTimeout(resolve, totalDuration - totalElapsed));
+  }
+
+  // Finale aanpassingen
+  if (targetBrightness === 0) {
+    for (const { currentDevice, currentToken, deviceid } of devicesToUpdate) {
+      if (GetInMemoryDimmy(deviceid) === currentToken) {
+        try {
+          // Eerst laatste temperature instelling
+          await currentDevice.setCapabilityValue('light_temperature', targetTemperature);
+          // Dan dimmen naar 0
+          await currentDevice.setCapabilityValue('dim', 0);
+          // Kleine pauze
+          await new Promise(resolve => setTimeout(resolve, 100));
+          // Dan uitschakelen
+          await currentDevice.setCapabilityValue('onoff', false);
+        } catch (error) {
+          console.log(`Error setting final state for device ${deviceid}:`, error);
+        }
+      }
+    }
+  } else {
+    // Zet exacte waarden
+    await Promise.all(devicesToUpdate.map(async ({ currentDevice, currentToken, deviceid }) => {
+      if (GetInMemoryDimmy(deviceid) === currentToken) {
+        try {
+          await currentDevice.setCapabilityValue('dim', targetBrightness);
+          await currentDevice.setCapabilityValue('light_temperature', targetTemperature);
+        } catch (error) {
+          console.log(`Error setting final values for device ${deviceid}:`, error);
+        }
+      }
+    }));
   }
 }
 
@@ -107,7 +152,6 @@ async function onFlowChangeBrightnessAndTemperatureOverDurationAndLux(homeyAPI, 
     let targetBrightness;
     let targetTemperature = setTemperature / 100;
 
-    // Forceer targetBrightness naar 0 als luxValue boven threshold is
     if (luxValue >= luxThreshold) {
       targetBrightness = 0;
     } else if (luxValue === 0) {
@@ -115,8 +159,7 @@ async function onFlowChangeBrightnessAndTemperatureOverDurationAndLux(homeyAPI, 
     } else {
       let scale = (luxThreshold - luxValue) / luxThreshold;
       targetBrightness = minBrightness + (maxBrightness - minBrightness) * scale;
-      // Zorg ervoor dat de brightness niet onder 0 kan komen
-      targetBrightness = Math.max(0, targetBrightness);
+      targetBrightness = Math.max(0, Math.min(maxBrightness, targetBrightness));
     }
 
     targetBrightness = Math.round(targetBrightness) / 100;

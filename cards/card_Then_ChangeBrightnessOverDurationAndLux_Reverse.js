@@ -13,8 +13,9 @@ async function dimDevicesInSync(homeyAPI, helpers, devices, targetBrightness, se
   const { generateUniqueId, SetInMemoryDimmy, GetInMemoryDimmy } = helpers;
 
   const stepDuration = 410;
-  const milisecDuration = Math.max(setDuration * 1000, stepDuration);
-  const steps = Math.max(Math.round(milisecDuration / stepDuration), 1);
+  const totalDuration = setDuration * 1000;
+  const steps = Math.max(Math.round(totalDuration / stepDuration), 1);
+  const actualStepDuration = totalDuration / steps;
 
   const devicesInfo = await Promise.all(devices.map(async (device) => {
     const currentDevice = await homeyAPI.devices.getDevice({ id: device.id });
@@ -45,22 +46,29 @@ async function dimDevicesInSync(homeyAPI, helpers, devices, targetBrightness, se
   const devicesToUpdate = devicesInfo.filter(info => !info.skip);
   if (devicesToUpdate.length === 0) return;
 
-  const initialPromises = devicesToUpdate
-    .filter(({ currentOnOffState }) => !currentOnOffState && targetBrightness > 0)
-    .map(({ currentDevice }) => Promise.all([
-      currentDevice.setCapabilityValue('dim', 0.01),
-      currentDevice.setCapabilityValue('onoff', true)
-    ]));
+  // Initiële setup voor apparaten die aan moeten
+  if (targetBrightness > 0) {
+    const initialPromises = devicesToUpdate
+      .filter(({ currentOnOffState }) => !currentOnOffState)
+      .map(({ currentDevice }) => Promise.all([
+        currentDevice.setCapabilityValue('onoff', true),
+        currentDevice.setCapabilityValue('dim', 0.01)
+      ]));
 
-  if (initialPromises.length > 0) {
-    await Promise.all(initialPromises);
-    await new Promise(resolve => setTimeout(resolve, 50));
+    if (initialPromises.length > 0) {
+      await Promise.all(initialPromises);
+      await new Promise(resolve => setTimeout(resolve, 50));
+    }
   }
 
   const stepBrightnessMap = devicesToUpdate.map(({ currentBrightness }) => 
     (targetBrightness - currentBrightness) / steps);
 
+  const startTime = Date.now();
+
+  // Hoofdlus voor dimmen
   for (let currentStep = 0; currentStep < steps; currentStep++) {
+    const stepStartTime = Date.now();
     const allOperations = [];
 
     devicesToUpdate.forEach((info, index) => {
@@ -68,21 +76,61 @@ async function dimDevicesInSync(homeyAPI, helpers, devices, targetBrightness, se
 
       if (GetInMemoryDimmy(deviceid) !== currentToken) return;
 
-      if (currentStep === steps - 1) {
-        allOperations.push(currentDevice.setCapabilityValue('dim', targetBrightness));
+      let newBrightness = info.currentBrightness + stepBrightnessMap[index] * (currentStep + 1);
+      newBrightness = parseFloat(newBrightness.toFixed(2));
 
-        if (targetBrightness === 0) {
-          allOperations.push(currentDevice.setCapabilityValue('onoff', false));
-        }
-      } else {
-        let newBrightness = info.currentBrightness + stepBrightnessMap[index] * (currentStep + 1);
-        newBrightness = parseFloat(newBrightness.toFixed(2));
-
-        allOperations.push(currentDevice.setCapabilityValue('dim', newBrightness));
+      if (targetBrightness === 0) {
+        newBrightness = Math.max(0.01, newBrightness);
       }
+
+      allOperations.push(currentDevice.setCapabilityValue('dim', newBrightness));
     });
 
     await Promise.all(allOperations);
+
+    const elapsedStepTime = Date.now() - stepStartTime;
+    const remainingStepTime = actualStepDuration - elapsedStepTime;
+
+    if (remainingStepTime > 0) {
+      await new Promise(resolve => setTimeout(resolve, remainingStepTime));
+    }
+  }
+
+  // Controleer totale duratie
+  const totalElapsed = Date.now() - startTime;
+  if (totalElapsed < totalDuration) {
+    await new Promise(resolve => setTimeout(resolve, totalDuration - totalElapsed));
+  }
+
+  // Finale aanpassingen
+  if (targetBrightness === 0) {
+    for (const { currentDevice, currentToken, deviceid } of devicesToUpdate) {
+      if (GetInMemoryDimmy(deviceid) === currentToken) {
+        try {
+          // Eerst dim naar 0
+          await currentDevice.setCapabilityValue('dim', 0);
+          // Wacht kort
+          await new Promise(resolve => setTimeout(resolve, 100));
+          // Dan uitschakelen
+          await currentDevice.setCapabilityValue('onoff', false);
+          // Wacht voor volgende device
+          await new Promise(resolve => setTimeout(resolve, 50));
+        } catch (error) {
+          console.log(`Error setting final state for device ${deviceid}:`, error);
+        }
+      }
+    }
+  } else {
+    // Zet exacte helderheid
+    await Promise.all(devicesToUpdate.map(async ({ currentDevice, currentToken, deviceid }) => {
+      if (GetInMemoryDimmy(deviceid) === currentToken) {
+        try {
+          await currentDevice.setCapabilityValue('dim', targetBrightness);
+        } catch (error) {
+          console.log(`Error setting final brightness for device ${deviceid}:`, error);
+        }
+      }
+    }));
   }
 }
 
