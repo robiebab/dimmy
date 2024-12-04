@@ -59,28 +59,44 @@ async function onFlowBlinkLight(homeyAPI, helpers, args) {
     // Function to blink all devices synchronously
     const blinkDevice = async (device) => {
       const originalBrightness = device.capabilitiesObj.dim.value || 0;
+      const originalonoff = device.capabilitiesObj.onoff.value
 
       // Store the original brightness in case we need to restore it later
       SetInMemoryDimmy(device.id, currentToken);
+     
+      let BlinkFrom;  
+      let BlinkTo;
+     if (device.capabilitiesObj.onoff.value ){
+      BlinkFrom = 1;
+      BlinkTo = 0
+    }else{
+      BlinkFrom = 0;
+      BlinkTo = 1
+    }
 
       // Main loop to handle blinking
-      for (let i = 0; i < blinkCount; i++) {
+      for (let i = 0; i < (blinkCount*2); i++) {
         if (GetInMemoryDimmy(device.id) != currentToken) {
           return;
         }
 
-        // Dim in (from 0 to 100%)
-        await dimLight(device, 0, 1, setBlinkInterval * 1000);
+        await dimLight(device, BlinkFrom, BlinkTo, setBlinkInterval * 1000);
         await sleep(setBlinkInterval * 1000);
+        if (BlinkFrom == 0){
+          BlinkFrom = 1;
+          BlinkTo = 0
+        }else{
+          BlinkFrom = 0;
+          BlinkTo = 1
+        }
 
-        // Dim out (from 100% to 0%)
-        await dimLight(device, 1, 0, setBlinkInterval * 1000);
-        await sleep(setBlinkInterval * 1000);
       }
 
       // Restore original brightness
       if (GetInMemoryDimmy(device.id) == currentToken) {
         await device.setCapabilityValue('dim', originalBrightness);
+        setTimeout(resolve, 50)
+        await device.setCapabilityValue('onoff', originalonoff);
       }
     };
 
