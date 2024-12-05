@@ -1,32 +1,32 @@
 {
   "1.0.0": {
-    "en": "Initial release"
+    "en": "Initial release - Dimmy"
   },
   "1.0.1": {
-    "en": "Updated readme.txt and app.json for homey app requirements"
+    "en": "Markup - Updated readme.txt and app.json for homey app requirements"
   },
   "1.0.2": {
-    "en": "Removed URLs & markdown from readme.txt "
+    "en": "Markup - Removed URLs & markdown from readme.txt"
   },
   "1.1.0": {
-    "en": "added feature request github #1 Adjust brightness and temperature based on reverse LUX over time | Adjust brightness inversely based on LUX over time"
+    "en": "Feature Request - added feature request github #1 Adjust brightness and temperature based on reverse LUX over time | Adjust brightness inversely based on LUX over time"
   },
   "1.1.1": {
-    "en": "Added a check to ensure brightness is set to 0 when the device is turned off, overriding the previous brightness value."
+    "en": "Resilience - Added a check to ensure brightness is set to 0 when the device is turned off, overriding the previous brightness value."
   },
   "1.1.3": {
-    "en": "Added checks for 0 duration and on/off capability, along with optimizations to the code (20% improvement)."
+    "en": "Performance & Resilience - Added checks for 0 duration and on/off capability, along with optimizations to the code (20% improvement)."
   },
   "1.1.4": {
-    "en": "added Lazy loading in app.js + increase dim interval from 333 ms to 410 ms"
+    "en": "Performance & Resilience - added Lazy loading in app.js + increase dim interval from 333 ms to 410 ms"
   },
   "1.2.1": {
-    "en": "Performance update - Significant improved dimming speed and reliability through optimized code, better parallel processing, and enhanced device state management. Added improved error handling and smoother transitions. "
+    "en": "Performance & Resilience - Significant improved dimming speed and reliability through optimized code, better parallel processing, and enhanced device state management. Added improved error handling and smoother transitions. "
   },
   "1.2.2": {
-    "en": "fixed onoff capability"
+    "en": "Bugfix - Fixed onoff capability"
   },
   "1.2.3": {
-    "en": "Fixed blink light card"
+    "en": "Bugfix - Fixed blink light card"
   }
 }
