@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "the.dimming.company",
-  "version": "1.2.3",
+  "version": "1.1.0",
   "compatibility": ">=9.0.0",
   "sdk": 3,
   "brandColor": "#0174BE",
@@ -45,31 +45,16 @@
     "actions": [
       {
         "title": {
-          "en": "Blink light or zone",
-          "nl": "Lamp of zone laten knipperen",
-          "fr": "Faire clignoter la lumière ou la zone",
-          "de": "Lampe oder Zone blinken lassen",
-          "es": "Hacer parpadear la luz o la zona",
-          "zh": "灯光或区域闪烁",
-          "ru": "Мигание света или зоны"
+          "en": "Blink light with dimming",
+          "nl": "Laat lamp dimmend knipperen"
         },
         "titleFormatted": {
-          "en": "Blink the light or zone: [[selectDimmableDevice]], [[blinkCount]] times, with a transition of [[setBlinkInterval]] seconds between blinks.",
-          "nl": "Laat de lamp of zone: [[selectDimmableDevice]], [[blinkCount]] x knipperen, met transitie van [[setBlinkInterval]] seconden tussen knipperingen.",
-          "fr": "Faites clignoter la lumière ou la zone : [[selectDimmableDevice]], [[blinkCount]] fois, avec une transition de [[setBlinkInterval]] secondes entre les clignotements.",
-          "de": "Lassen Sie die Lampe oder Zone: [[selectDimmableDevice]], [[blinkCount]] Mal blinken, mit einer Übergangszeit von [[setBlinkInterval]] Sekunden zwischen den Blinken.",
-          "es": "Haga parpadear la luz o zona: [[selectDimmableDevice]], [[blinkCount]] veces, con una transición de [[setBlinkInterval]] segundos entre parpadeos.",
-          "zh": "使灯光或区域：[[selectDimmableDevice]]，闪烁 [[blinkCount]] 次，闪烁之间的过渡时间为 [[setBlinkInterval]] 秒。",
-          "ru": "Заставьте свет или зону: [[selectDimmableDevice]], мигать [[blinkCount]] раз, с переходом в [[setBlinkInterval]] секунд между миганиями."
+          "en": "Blink the light of [[selectDimmableDevice]] dimming in and out [[blinkCount]] times with a delay of [[setBlinkInterval]] seconds between blinks.",
+          "nl": "Laat de lamp van [[selectDimmableDevice]] dimmend knipperen [[blinkCount]] keer met een vertraging van [[setBlinkInterval]] seconden tussen knipperingen."
         },
         "hint": {
           "en": "This card makes the selected light blink with smooth dimming transitions, restoring the original settings after.",
-          "nl": "Deze kaart laat de geselecteerde lamp dimmend knipperen en herstelt daarna de oorspronkelijke instellingen.",
-          "fr": "Cette carte fait clignoter la lumière sélectionnée avec des transitions de gradation en douceur, en restaurant les paramètres d'origine par la suite.",
-          "de": "Diese Karte lässt das ausgewählte Licht mit sanften Dimmübergängen blinken und stellt danach die ursprünglichen Einstellungen wieder her.",
-          "es": "Esta tarjeta hace que la luz seleccionada parpadee con transiciones de atenuación suaves, restaurando la configuración original después.",
-          "zh": "此卡使所选灯光以平滑的调光过渡闪烁，然后恢复原始设置。",
-          "ru": "Эта карта заставляет выбранный свет мигать с плавными переходами затемнения, восстанавливая исходные настройки после."
+          "nl": "Deze kaart laat de geselecteerde lamp dimmend knipperen en herstelt daarna de oorspronkelijke instellingen."
         },
         "args": [
           {
@@ -77,12 +62,7 @@
             "name": "selectDimmableDevice",
             "placeholder": {
               "en": "device",
-              "nl": "apparaat",
-              "fr": "appareil",
-              "de": "Gerät",
-              "es": "dispositivo",
-              "zh": "设备",
-              "ru": "устройство"
+              "nl": "apparaat"
             }
           },
           {
@@ -90,12 +70,7 @@
             "name": "setBlinkInterval",
             "title": {
               "en": "Blink interval (in seconds)",
-              "nl": "Knipperinterval (in seconden)",
-              "fr": "Intervalle de clignotement (en secondes)",
-              "de": "Blinkintervall (in Sekunden)",
-              "es": "Intervalo de parpadeo (en segundos)",
-              "zh": "闪烁间隔（秒）",
-              "ru": "Интервал мигания (в секундах)"
+              "nl": "Knipperinterval (in seconden)"
             },
             "min": 0,
             "max": 5,
@@ -106,12 +81,7 @@
             "name": "blinkCount",
             "title": {
               "en": "Number of blinks",
-              "nl": "Aantal knipperingen",
-              "fr": "Nombre de clignotements",
-              "de": "Anzahl der Blinkvorgänge",
-              "es": "Número de parpadeos",
-              "zh": "闪烁次数",
-              "ru": "Количество миганий"
+              "nl": "Aantal knipperingen"
             },
             "min": 1,
             "max": 10,
