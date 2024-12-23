@@ -64,125 +64,6 @@ function sleep(ms) {
 }
 
 
-
-// async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, targetBrightness, targetTemperature, setDuration) {
-//   const { generateUniqueId, SetInMemoryDimmy, GetInMemoryDimmy } = helpers;
-//   const hasTemperature = targetTemperature !== null;
-//   const stepDuration = 400;
-//   const totalDuration = setDuration * 1000;
-//   const steps = Math.max(Math.round(totalDuration / stepDuration), 1);
-//   const actualStepDuration = totalDuration / steps;
-
-//   // Parallel device initialization
-//   const devicesInfo = await Promise.all(devices.map(async device => {
-//     try {
-//       const currentDevice = await homeyAPI.devices.getDevice({ id: device.id });
-//       const deviceid = currentDevice.id;
-//       const currentToken = generateUniqueId();
-//       SetInMemoryDimmy(deviceid, currentToken);
-
-//       const currentOnOffState = currentDevice.capabilitiesObj.onoff.value;
-//       const currentBrightness = currentOnOffState ? (currentDevice.capabilitiesObj.dim.value || 0) : 0;
-//       const currentTemperature = hasTemperature ? (currentDevice.capabilitiesObj.light_temperature?.value || 0) : null;
-
-//       // Early skip check
-//       if (currentBrightness === targetBrightness && 
-//           currentOnOffState === (targetBrightness > 0) && 
-//           (!hasTemperature || currentTemperature === targetTemperature)) {
-//           return { skip: true };
-//       }
-
-//       return {
-//         currentDevice,
-//         currentBrightness,
-//         currentTemperature,
-//         currentOnOffState,
-//         currentToken,
-//         deviceid,
-//         hasTemperature,
-//         stepBrightness: (targetBrightness - currentBrightness) / steps,
-//         stepTemperature: hasTemperature ? (targetTemperature - currentTemperature) / steps : null
-//       };
-//     } catch (error) {
-//       console.error(`Error initializing device ${device.id}:`, error);
-//       return { skip: true };
-//     }
-//   }));
-
-//   const devicesToUpdate = devicesInfo.filter(info => !info.skip);
-//   if (devicesToUpdate.length === 0) return;
-
-//   // Initial parallel setup
-//   if (targetBrightness > 0) {
-//     const devicesToTurnOn = devicesToUpdate.filter(({ currentOnOffState }) => !currentOnOffState);
-//     if (devicesToTurnOn.length > 0) {
-//       await Promise.all([
-//         ...devicesToTurnOn.map(({ currentDevice, currentToken, deviceid }) => 
-//           GetInMemoryDimmy(deviceid) === currentToken ? 
-//           currentDevice.setCapabilityValue('onoff', true) : 
-//           Promise.resolve()
-//         ),
-//         ...(setDuration > 0 ? devicesToTurnOn.map(({ currentDevice, currentToken, deviceid }) => 
-//           GetInMemoryDimmy(deviceid) === currentToken ? 
-//           currentDevice.setCapabilityValue('dim', 0.01) : 
-//           Promise.resolve()
-//         ) : [])
-//       ]).catch(error => console.log('Error in initial setup:', error));
-//     }
-//   }
-
-//   const startTime = Date.now();
-
-//   // Optimized dim steps
-//   for (let currentStep = 0; currentStep < steps; currentStep++) {
-//     const stepStartTime = Date.now();
-
-//     await Promise.all(devicesToUpdate.map(device => {
-//       if (GetInMemoryDimmy(device.deviceid) !== device.currentToken) return Promise.resolve();
-
-//       const newBrightness = Math.max(0.01, parseFloat(
-//         (device.currentBrightness + device.stepBrightness * (currentStep + 1)).toFixed(2)
-//       ));
-//       const newTemperature = device.hasTemperature ? parseFloat(
-//         (device.currentTemperature + device.stepTemperature * (currentStep + 1)).toFixed(2)
-//       ) : null;
-
-//       return Promise.all([
-//         newBrightness !== targetBrightness ? 
-//           device.currentDevice.setCapabilityValue('dim', newBrightness) : 
-//           Promise.resolve(),
-//         device.hasTemperature && newTemperature !== targetTemperature ? 
-//           device.currentDevice.setCapabilityValue('light_temperature', newTemperature) : 
-//           Promise.resolve()
-//       ]).catch(error => console.log(`Error in step ${currentStep} for device ${device.deviceid}:`, error));
-//     }));
-//     await sleep(10);
-//     const remainingStepTime = actualStepDuration - (Date.now() - stepStartTime);
-//     if (remainingStepTime > 0) await sleep(remainingStepTime);
-//   }
-
-//   // Ensure total duration
-//   const remainingTotalTime = totalDuration - (Date.now() - startTime);
-//   if (remainingTotalTime > 0) await sleep(remainingTotalTime);
-
-//   // Optimized final adjustments
-//   try {
-//     await Promise.all(devicesToUpdate.map(({ currentDevice, currentToken, deviceid, hasTemperature }) => {
-//       if (GetInMemoryDimmy(deviceid) !== currentToken) return Promise.resolve();
-
-//       return targetBrightness === 0 ?
-//         currentDevice.setCapabilityValue('onoff', false) :
-//         Promise.all([
-//           currentDevice.setCapabilityValue('dim', targetBrightness),
-//           hasTemperature ? currentDevice.setCapabilityValue('light_temperature', targetTemperature) : Promise.resolve()
-//         ]);
-//     }));
-//   } catch (error) {
-//     console.error('Error during final adjustments:', error);
-//   }
-// }
-
-
 async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, targetBrightness, targetTemperature, setDuration) {
   const { generateUniqueId, SetInMemoryDimmy, GetInMemoryDimmy } = helpers;
   const hasTemperature = targetTemperature !== null;
@@ -196,28 +77,43 @@ async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, target
     const deviceid = currentDevice.id;
 
     let currentOnOffState = currentDevice.capabilitiesObj.onoff.value;
-    let currentBrightness = currentDevice.capabilitiesObj.dim.value || 0;
+    let currentBrightness = currentOnOffState ? currentDevice.capabilitiesObj.dim.value || 0 : 0;
     let currentTemperature = hasTemperature ? (currentDevice.capabilitiesObj.light_temperature?.value || 0) : null;
 
     const currentToken = generateUniqueId();
     SetInMemoryDimmy(deviceid, currentToken);
 
-    if (currentBrightness === targetBrightness && 
-      currentOnOffState === (targetBrightness > 0) && 
-      (!hasTemperature || currentTemperature === targetTemperature)) {
-      return { skip: true };
+    // Eerst controleren of de aan/uit status moet wijzigen
+    if (currentOnOffState !== (targetBrightness > 0)) {
+      return {
+        currentDevice,
+        currentBrightness,
+        hasTemperature,
+        currentTemperature,
+        currentOnOffState,
+        currentToken,
+        deviceid,
+        skip: false
+      };
     }
-  
 
-    return {
-      currentDevice,
-      currentBrightness,
-      hasTemperature,
-      currentTemperature,
-      currentOnOffState,
-      currentToken,
-      deviceid,
-    };
+    // Controleer of brightness of temperature aangepast moet worden
+    if (currentBrightness !== targetBrightness || (targetBrightness > 0 && hasTemperature && currentTemperature !== targetTemperature)) {
+      console.log('slecht')
+      return {
+        currentDevice,
+        currentBrightness,
+        hasTemperature,
+        currentTemperature,
+        currentOnOffState,
+        currentToken,
+        deviceid,
+        skip: false
+      };
+    }
+
+    // Als er geen aanpassingen nodig zijn
+    return { skip: true };
   }));
 
   const devicesToUpdate = devicesInfo.filter(info => !info.skip);
@@ -240,11 +136,11 @@ async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, target
 
   const stepBrightnessMap = devicesToUpdate.map(({ currentBrightness }) => 
     (targetBrightness - currentBrightness) / steps);
-  
+
   const stepTemperatureMap = hasTemperature ? 
-  devicesToUpdate.map(({ currentTemperature }) => 
-    (targetTemperature - currentTemperature) / steps)
-  : null;
+    devicesToUpdate.map(({ currentTemperature }) => 
+      (targetTemperature - currentTemperature) / steps)
+    : null;
 
   const startTime = Date.now();
 
@@ -256,10 +152,11 @@ async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, target
       const { currentDevice, currentToken, deviceid } = info;
 
       if (GetInMemoryDimmy(deviceid) !== currentToken) return;
-      
+
       let newBrightness = info.currentBrightness + stepBrightnessMap[index] * (currentStep + 1);
-      newBrightness = Math.max(0.01,parseFloat(newBrightness.toFixed(2)));
-      if(hasTemperature){
+      newBrightness = Math.max(0.01, parseFloat(newBrightness.toFixed(2)));
+
+      if (hasTemperature) {
         let newTemperature = info.currentTemperature + stepTemperatureMap[index] * (currentStep + 1);
         newTemperature = parseFloat(newTemperature.toFixed(2));
 
@@ -267,7 +164,7 @@ async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, target
           currentDevice.setCapabilityValue('dim', newBrightness),
           currentDevice.setCapabilityValue('light_temperature', newTemperature)
         );
-      }else{
+      } else {
         allOperations.push(currentDevice.setCapabilityValue('dim', newBrightness));  
       }
     });
@@ -302,7 +199,7 @@ async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, target
         } else {
           // Zet finale waarden
           await currentDevice.setCapabilityValue('dim', targetBrightness);
-          if(hasTemperature){
+          if (hasTemperature) {
             await currentDevice.setCapabilityValue('light_temperature', targetTemperature);
           }
         }
@@ -312,6 +209,7 @@ async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, target
     }
   }
 }
+
 
 // Moved the autocompleteDevices function to app.js to handle device search
 async function autocompleteDevices(homeyAPI, query) {

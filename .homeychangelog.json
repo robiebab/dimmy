@@ -28,5 +28,11 @@
   },
   "1.2.3": {
     "en": "Bugfix - Fixed blink light card."
+  },
+  "2.0.0": {
+    "en": "Enhanced app modularity and improved performance with optimized parallel dimming operations. This architectural improvement prepares the app for future feature requests while maintaining our focus on fluid and synchronized dimming actions."
+  },
+  "2.0.1": {
+    "en": "Bugfix - Fix on/off state"
   }
 }
