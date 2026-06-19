@@ -1,0 +1,44 @@
+{
+  "title": {
+    "en": "Cancel transition",
+    "nl": "Annuleer overgang",
+    "fr": "Annuler la transition",
+    "de": "Übergang abbrechen",
+    "es": "Cancelar transición",
+    "zh": "取消过渡",
+    "ru": "Отменить переход"
+  },
+  "titleFormatted": {
+    "en": "Cancel the active transition for [[selectDimmableDevice]]",
+    "nl": "Annuleer de actieve overgang voor [[selectDimmableDevice]]",
+    "fr": "Annuler la transition active pour [[selectDimmableDevice]]",
+    "de": "Aktiven Übergang für [[selectDimmableDevice]] abbrechen",
+    "es": "Cancelar la transición activa para [[selectDimmableDevice]]",
+    "zh": "取消 [[selectDimmableDevice]] 的活动过渡",
+    "ru": "Отменить активный переход для [[selectDimmableDevice]]"
+  },
+  "hint": {
+    "en": "Immediately stops any active Dimmy transition for the selected device or zone. The light stays at its current level.",
+    "nl": "Stopt onmiddellijk elke actieve Dimmy-overgang voor het geselecteerde apparaat of zone. Het licht blijft op het huidige niveau.",
+    "fr": "Arrête immédiatement toute transition Dimmy active pour l'appareil ou la zone sélectionné. La lumière reste à son niveau actuel.",
+    "de": "Stoppt sofort jeden aktiven Dimmy-Übergang für das ausgewählte Gerät oder die Zone. Das Licht bleibt auf dem aktuellen Niveau.",
+    "es": "Detiene inmediatamente cualquier transición Dimmy activa para el dispositivo o zona seleccionado. La luz permanece en su nivel actual.",
+    "zh": "立即停止所选设备或区域的任何活动 Dimmy 过渡。灯光保持在当前级别。",
+    "ru": "Немедленно останавливает любой активный переход Dimmy для выбранного устройства или зоны. Свет остаётся на текущем уровне."
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "selectDimmableDevice",
+      "placeholder": {
+        "en": "device or zone",
+        "nl": "apparaat of zone",
+        "fr": "appareil ou zone",
+        "de": "Gerät oder Zone",
+        "es": "dispositivo o zona",
+        "zh": "设备或区域",
+        "ru": "устройство или зона"
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "1.0.0": {
+    "en": "Initial release - Dimmy"
+  },
+  "1.0.1": {
+    "en": "Markup - Updated readme.txt and app.json for homey app requirements."
+  },
+  "1.0.2": {
+    "en": "Markup - Removed URLs & markdown from readme.txt."
+  },
+  "1.1.0": {
+    "en": "Feature Request - added feature request github #1 Adjust brightness and temperature based on reverse LUX over duration | Adjust brightness inversely based on LUX over duration."
+  },
+  "1.1.1": {
+    "en": "Resilience - Added a check to ensure brightness is set to 0 when the device is turned off, overriding the previous brightness value."
+  },
+  "1.1.3": {
+    "en": "Performance & Resilience - Added checks for 0 duration and on/off capability, along with optimizations to the code (20% improvement)."
+  },
+  "1.1.4": {
+    "en": "Performance & Resilience - added Lazy loading in app.js + increase dim interval from 333 ms to 410 ms."
+  },
+  "1.2.1": {
+    "en": "Performance & Resilience - Significant improved dimming speed reliability an smoother transitions through optimized code."
+  },
+  "1.2.2": {
+    "en": "Bugfix - Fixed onoff capability."
+  },
+  "1.2.3": {
+    "en": "Bugfix - Fixed blink light card."
+  },
+  "2.0.0": {
+    "en": "Enhanced app modularity and improved performance with optimized parallel dimming operations. This architectural improvement prepares the app for future feature requests while maintaining our focus on fluid and synchronized dimming actions."
+  },
+  "2.0.1": {
+    "en": "Bugfix - Fix on/off state"
+  },
+  "2.1.1": {
+    "en": "New: Cancel Transition flow card; Improved: Dimmy now detects external overrides from other apps or physical switches and stops gracefully; Improved: faster handover when a new transition replaces a running one."
+  }
+}

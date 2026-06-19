@@ -1,0 +1,46 @@
+{
+  "title": {
+    "en": "Blink light with dimming",
+    "nl": "Laat lamp dimmend knipperen"
+  },
+  "titleFormatted": {
+    "en": "Blink the light of [[selectDimmableDevice]] dimming in and out [[blinkCount]] times with a delay of [[setBlinkInterval]] seconds between blinks.",
+    "nl": "Laat de lamp van [[selectDimmableDevice]] dimmend knipperen [[blinkCount]] keer met een vertraging van [[setBlinkInterval]] seconden tussen knipperingen."
+  },
+  "hint": {
+    "en": "This card makes the selected light blink with smooth dimming transitions, restoring the original settings after.",
+    "nl": "Deze kaart laat de geselecteerde lamp dimmend knipperen en herstelt daarna de oorspronkelijke instellingen."
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "selectDimmableDevice",
+      "placeholder": {
+        "en": "device",
+        "nl": "apparaat"
+      }
+    },
+    {
+      "type": "range",
+      "name": "setBlinkInterval",
+      "title": {
+        "en": "Blink interval (in seconds)",
+        "nl": "Knipperinterval (in seconden)"
+      },
+      "min": 0,
+      "max": 5,
+      "step": 0.333
+    },
+    {
+      "type": "range",
+      "name": "blinkCount",
+      "title": {
+        "en": "Number of blinks",
+        "nl": "Aantal knipperingen"
+      },
+      "min": 1,
+      "max": 10,
+      "step": 1
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "title": {
+    "en": "Adjust brightness and temperature based on reverse LUX over time",
+    "nl": "Pas helderheid en temperatuur aan op basis van omgekeerde LUX over tijd"
+  },
+  "titleFormatted": {
+    "en": "Set [[selectDimmableDevice]] brightness between [[minBrightness]]% and [[maxBrightness]]% and temperature to [[setTemperature]]% over [[setDuration]] seconds based on reverse LUX [[luxValue]] with threshold [[luxThreshold]].",
+    "nl": "Stel de helderheid van [[selectDimmableDevice]] in tussen [[minBrightness]]% en [[maxBrightness]]% en temperatuur naar [[setTemperature]]% gedurende [[setDuration]] seconden op basis van omgekeerde LUX [[luxValue]] met drempel [[luxThreshold]]."
+  },
+  "hint": {
+    "en": "This card adjusts the brightness and temperature of selected devices over a configurable period based on reverse LUX values and thresholds.",
+    "nl": "Deze kaart past de helderheid en temperatuur van geselecteerde apparaten aan over een instelbare periode op basis van omgekeerde LUX-waarden en drempelwaarden."
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "selectDimmableDevice",
+      "placeholder": {
+        "en": "device",
+        "nl": "apparaat"
+      }
+    },
+    {
+      "type": "range",
+      "name": "minBrightness",
+      "title": {
+        "en": "minimum brightness (%)",
+        "nl": "minimale helderheid (%)"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "name": "maxBrightness",
+      "title": {
+        "en": "maximum brightness (%)",
+        "nl": "maximale helderheid (%)"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "name": "setTemperature",
+      "title": {
+        "en": "set temperature (%)",
+        "nl": "stel temperatuur in (%)"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "name": "setDuration",
+      "title": {
+        "en": "duration (seconds)",
+        "nl": "duur (seconden)"
+      },
+      "min": 0,
+      "max": 20,
+      "step": 0.333
+    },
+    {
+      "type": "number",
+      "name": "luxValue",
+      "title": {
+        "en": "reverse LUX value",
+        "nl": "omgekeerde LUX-waarde"
+      },
+      "min": 0,
+      "max": 10000,
+      "step": 1
+    },
+    {
+      "type": "number",
+      "name": "luxThreshold",
+      "title": {
+        "en": "reverse LUX threshold",
+        "nl": "omgekeerde LUX-drempel"
+      },
+      "min": 0,
+      "max": 10000,
+      "step": 1
+    }
+  ]
+}

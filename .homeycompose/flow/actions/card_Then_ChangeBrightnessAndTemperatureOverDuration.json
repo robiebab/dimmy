@@ -1,0 +1,119 @@
+{
+  "title": {
+    "en": "Change brightness and temperature over duration",
+    "nl": "Verander helderheid en temperatuur over tijd",
+    "fr": "Changer la luminosité et la température sur la durée",
+    "de": "Helligkeit und Farbtemperatur über die Dauer ändern",
+    "es": "Cambiar el brillo y la temperatura a lo largo del tiempo",
+    "zh": "随时间改变亮度和色温",
+    "ru": "Изменить яркость и температуру со временем"
+  },
+  "titleFormatted": {
+    "en": "Set the device [[selectDimmableDevice]] to a brightness of [[setBrightness]]% and a temperature of [[setTemperature]] over [[setDuration]] seconds.",
+    "nl": "Stel het apparaat [[selectDimmableDevice]] in op een helderheid van [[setBrightness]]% en een temperatuur van [[setTemperature]] gedurende [[setDuration]] seconden.",
+    "fr": "Réglez l'appareil [[selectDimmableDevice]] sur une luminosité de [[setBrightness]]% et une température de [[setTemperature]] pendant [[setDuration]] secondes.",
+    "de": "Setze das Gerät [[selectDimmableDevice]] auf eine Helligkeit von [[setBrightness]]% und eine Farbtemperatur von [[setTemperature]] über [[setDuration]] Sekunden.",
+    "es": "Configura el dispositivo [[selectDimmableDevice]] a un brillo de [[setBrightness]]% y una temperatura de [[setTemperature]] durante [[setDuration]] segundos.",
+    "zh": "将设备 [[selectDimmableDevice]] 的亮度设置为 [[setBrightness]]% 和色温 [[setTemperature]]，持续 [[setDuration]] 秒。",
+    "ru": "Установите устройство [[selectDimmableDevice]] на яркость [[setBrightness]]% и температуру [[setTemperature]] на протяжении [[setDuration]] секунд."
+  },
+  "hint": {
+    "en": "This card adjusts the brightness and temperature of selected devices over a configurable period",
+    "nl": "Deze kaart past de helderheid en temperatuur van geselecteerde apparaten aan over een instelbare periode",
+    "fr": "Cette carte ajuste la luminosité et la température des appareils sélectionnés sur une période configurable",
+    "de": "Diese Karte passt die Helligkeit und Farbtemperatur der ausgewählten Geräte über einen konfigurierbaren Zeitraum an",
+    "es": "Esta tarjeta ajusta el brillo y la temperatura de los dispositivos seleccionados durante un período configurable",
+    "zh": "此卡片可在可配置的时间内调整所选设备的亮度和色温",
+    "ru": "Эта карта регулирует яркость и температуру выбранных устройств в течение настраиваемого периода"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "selectDimmableDevice",
+      "placeholder": {
+        "en": "device",
+        "nl": "apparaat",
+        "fr": "appareil",
+        "de": "Gerät",
+        "es": "dispositivo",
+        "zh": "设备",
+        "ru": "устройство"
+      }
+    },
+    {
+      "type": "range",
+      "name": "setBrightness",
+      "title": {
+        "en": "brightness",
+        "nl": "helderheid",
+        "fr": "luminosité",
+        "de": "Helligkeit",
+        "es": "brillo",
+        "zh": "亮度",
+        "ru": "яркость"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "placeholder": {
+        "en": "brightness",
+        "nl": "helderheid",
+        "fr": "luminosité",
+        "de": "Helligkeit",
+        "es": "brillo",
+        "zh": "亮度",
+        "ru": "яркость"
+      }
+    },
+    {
+      "type": "range",
+      "name": "setTemperature",
+      "title": {
+        "en": "temperature",
+        "nl": "temperatuur",
+        "fr": "température",
+        "de": "Farbtemperatur",
+        "es": "temperatura",
+        "zh": "色温",
+        "ru": "температура"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "placeholder": {
+        "en": "temperature",
+        "nl": "temperatuur",
+        "fr": "température",
+        "de": "Farbtemperatur",
+        "es": "temperatura",
+        "zh": "色温",
+        "ru": "температура"
+      }
+    },
+    {
+      "type": "range",
+      "name": "setDuration",
+      "title": {
+        "en": "duration",
+        "nl": "duur",
+        "fr": "durée",
+        "de": "Dauer",
+        "es": "duración",
+        "zh": "持续时间",
+        "ru": "длительность"
+      },
+      "min": 0,
+      "max": 20,
+      "step": 0.333,      
+      "placeholder": {
+        "en": "duration",
+        "nl": "duur",
+        "fr": "durée",
+        "de": "Dauer",
+        "es": "duración",
+        "zh": "持续时间",
+        "ru": "длительность"
+      }
+    }
+  ]
+}
