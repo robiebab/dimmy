@@ -66,14 +66,6 @@ function sleep(ms) {
 
 async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, targetBrightness, targetTemperature, setDuration) {
   const { generateUniqueId, SetInMemoryDimmy, GetInMemoryDimmy } = helpers;
-
-  // Preëmpt onmiddellijk elke lopende transitie voor deze apparaten.
-  // Zonder dit wacht de preëmptie tot na de homeyAPI.devices.getDevice() calls
-  // hieronder, wat 200-500ms overlap geeft met de oude transitie.
-  // Door nu al een nieuwe token te zetten stopt de oude loop bij de
-  // eerstvolgende iteratie (~max 410ms), ongeacht API-timing.
-  devices.forEach(device => SetInMemoryDimmy(device.id, generateUniqueId()));
-
   const hasTemperature = targetTemperature !== null;
   const stepDuration = 410;
   const totalDuration = setDuration * 1000;
@@ -161,34 +153,8 @@ async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, target
 
       if (GetInMemoryDimmy(deviceid) !== currentToken) return;
 
-      // Detecteer externe override (andere app, fysieke dimmer, etc.)
-      // Vanaf stap 1: vergelijk de huidige waarde van het apparaat met wat
-      // Dimmy als laatste heeft gezet. De sleutel `lastset_{deviceid}` in
-      // memoryValuesDimmy fungeert als het Dimmy-stempel: alleen Dimmy schrijft
-      // daar naartoe, dus een afwijking betekent altijd een externe ingreep.
-      const dimmyLastSet = GetInMemoryDimmy(`lastset_${deviceid}`);
-      if (currentStep > 0 && dimmyLastSet !== undefined) {
-        const actualBrightness = currentDevice.capabilitiesObj?.dim?.value ?? null;
-        const actualOnOff = currentDevice.capabilitiesObj?.onoff?.value;
-
-        // Lamp extern uitgeschakeld
-        const externallyTurnedOff = actualOnOff === false;
-        // Helderheid significant afwijkend van het Dimmy-stempel (drempel 10%)
-        const externallyChanged = actualBrightness !== null &&
-          Math.abs(actualBrightness - dimmyLastSet) > 0.1;
-
-        if (externallyTurnedOff || externallyChanged) {
-          // Invalideer token: stopt ook de finale aanpassingen verderop
-          SetInMemoryDimmy(deviceid, generateUniqueId());
-          return;
-        }
-      }
-
       let newBrightness = info.currentBrightness + stepBrightnessMap[index] * (currentStep + 1);
       newBrightness = Math.max(0.01, parseFloat(newBrightness.toFixed(2)));
-
-      // Schrijf het Dimmy-stempel: wat heeft Dimmy als laatste gezet?
-      SetInMemoryDimmy(`lastset_${deviceid}`, newBrightness);
 
       if (hasTemperature) {
         let newTemperature = info.currentTemperature + stepTemperatureMap[index] * (currentStep + 1);
@@ -221,9 +187,6 @@ async function dimDevicesAndTemperatureInSync(homeyAPI, helpers, devices, target
 
   // Finale aanpassingen voor elk device
   for (const { currentDevice, currentToken, deviceid } of devicesToUpdate) {
-    // Ruim het Dimmy-stempel altijd op, ook als de transitie gestopt is
-    SetInMemoryDimmy(`lastset_${deviceid}`, undefined);
-
     if (GetInMemoryDimmy(deviceid) === currentToken) {
       try {
         if (targetBrightness === 0) {
