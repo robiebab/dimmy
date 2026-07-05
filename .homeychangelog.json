@@ -37,5 +37,8 @@
   },
   "2.1.1": {
     "en": "New: Cancel Transition flow card; Improved: Dimmy now detects external overrides from other apps or physical switches and stops gracefully; Improved: faster handover when a new transition replaces a running one."
+  },
+  "2.1.3": {
+    "en": "Bugfix - Fixed an issue introduced in 2.1.1 where dimming transitions could stop early and not reach the set brightness. Transitions now complete reliably again."
   }
 }
